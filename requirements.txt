@@ -1,0 +1,7 @@
+requests
+beautifulsoup4
+lxml
+wechatarticles
+black # develop use
+pre-commit
+pytest
