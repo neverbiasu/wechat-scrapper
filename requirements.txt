@@ -2,8 +2,8 @@ requests
 beautifulsoup4
 lxml
 wechatarticles
-pdfkit
-markdown2
+html2text
+pyhtml2pdf
 black # develop use
 pre-commit
 pytest
