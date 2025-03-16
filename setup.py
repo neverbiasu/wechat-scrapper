@@ -14,9 +14,6 @@ setup(
         "pytest",
     ],
     entry_points={
-        "console_scripts": [
-            "wechat-scrapper-cli=wechat_scrapper.cli:main",
-            "wechat-scrapper-terminal=wechat_scrapper.terminal:WechatTerminal.cmdloop",
-        ],
+        "console_scripts": ["wechat-scrapper=wechat_scrapper.cli:main"],
     },
 )
