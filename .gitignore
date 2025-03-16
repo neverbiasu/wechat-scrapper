@@ -5,3 +5,7 @@ __pycache__/
 .env
 wechatarticles
 test/
+!tests/
+wechat_scrapper.egg-info/
+.vscode
+.pytest_cache
