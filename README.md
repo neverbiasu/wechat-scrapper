@@ -21,22 +21,46 @@ pip install -r requirements.txt
 
 ### 命令行
 
+你需要提供 cookie 和 token 来使用此工具：
+
 ```bash
-wechat-scrapper download --url <url> --mode <mode>
-wechat-scrapper download --nickname <nickname> --format <format>
-wechat-scrapper info --url <url>
-wechat-scrapper account --nickname <nickname>
+# 下载单篇文章
+wechat-scrapper download --url <url> --mode <mode> --cookie <cookie> --token <token>
+
+# 批量下载公众号文章
+wechat-scrapper download --nickname <nickname> --format <format> --cookie <cookie> --token <token>
+
+# 获取文章信息
+wechat-scrapper info --url <url> --cookie <cookie> --token <token>
+
+# 获取公众号信息
+wechat-scrapper account --nickname <nickname> --cookie <cookie> --token <token>
+```
+
+### 使用配置文件
+
+你也可以创建一个配置文件来存储 cookie 和 token：
+
+```json
+{
+  "cookie": "your_cookie_here",
+  "token": "your_token_here"
+}
+```
+
+然后通过 `--config` 参数指定配置文件路径：
+
+```bash
+wechat-scrapper download --url <url> --mode <mode> --config config.json
 ```
 
 ### 图形用户界面
 
 ```bash
-wechat-scrapper gui
+wechat-scrapper gui --cookie <cookie> --token <token>
+# 或者使用配置文件
+wechat-scrapper gui --config config.json
 ```
-
-## 配置
-
-在使用前，需要配置 `appmsg_token` 和 `cookie`，可以在 `wechat_scrapper/scrapper.py` 文件中设置。
 
 ## 贡献
 
