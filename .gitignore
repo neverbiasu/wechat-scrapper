@@ -9,3 +9,5 @@ test/
 wechat_scrapper.egg-info/
 .vscode
 .pytest_cache
+download/
+config.json
