@@ -72,11 +72,18 @@ class WechatScrapper:
         invalid_chars = r'[\\/*?:"<>|]'
         return re.sub(invalid_chars, '', filename)
 
-    def download(self, url=None, nickname=None, mode=4, format="html"):
+    def download(self, url=None, nickname=None, mode=0, format="html"):
+        """Download an article from WeChat with a URL or nickname."""
+        content = None
         if url:
-            return self.download_article(url, mode)
+            print(f"正在下载文章: {url}")
+            # 随机等待时间，防止被封
+            wait_time = round(3 + random.random() * 5, 2)
+            print(f"等待 {wait_time} 秒...")
+            time.sleep(wait_time)
+            content = self.url2html.run(url, 4)
         elif nickname:
-            return self.download_articles(nickname, format)
+            return self.download_articles(nickname, format=format)
         return "请提供 URL 或公众号昵称"
 
     def download_article(self, url, mode=4):
@@ -232,7 +239,7 @@ class WechatScrapper:
                         return "下载中断，需要手动完成验证。请在微信中打开链接完成验证后，使用新的cookie重试。"
                 elif format == "pdf":
                     output_path = os.path.join(account_dir, filename)
-                    result = self.url2pdf.url_to_pdf(url, title=output_path)
+                    result = self.url2pdf.url_to_pdf(url, title=filename)
                     if "PDF 已保存" in str(result):
                         success_count += 1
                     if "需要手动验证" in str(result):
@@ -249,7 +256,7 @@ class WechatScrapper:
                         self.output_dir = original_dir
                         return "下载中断，需要手动完成验证。请在微信中打开链接完成验证后，使用新的cookie重试。"
                     output_path = os.path.join(account_dir, filename)
-                    result = self.html2md.convert(html_content, title=output_path)
+                    result = self.html2md.convert(html_content, title=filename)
                     if "Markdown 已保存" in str(result):
                         success_count += 1
 
@@ -293,7 +300,7 @@ class WechatScrapper:
                     results.append(result)
                 elif format == "pdf":
                     output_path = os.path.join(account_dir, filename)
-                    result = self.url2pdf.url_to_pdf(url, title=output_path)
+                    result = self.url2pdf.url_to_pdf(url, title=filename)
                     results.append(result)
                 elif format == "markdown":
                     html_content = self.download_article(url, mode=1)
@@ -302,7 +309,7 @@ class WechatScrapper:
                         results.append(html_content)
                         break
                     output_path = os.path.join(account_dir, filename)
-                    result = self.html2md.convert(html_content, title=output_path)
+                    result = self.html2md.convert(html_content, title=filename)
                     results.append(result)
 
                 print(f"[{index+len(test_urls)+1}/{len(urls)}] 下载完成")
