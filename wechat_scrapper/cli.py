@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import time
 import random
 from .scrapper import WechatScrapper
 from .gui import WechatGUI
@@ -173,6 +174,5 @@ def main():
 
 
 if __name__ == "__main__":
-    import time
 
     main()
